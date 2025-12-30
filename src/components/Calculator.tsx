@@ -504,7 +504,7 @@ export function Calculator() {
       />
 
       {result && (
-        <div className="hidden">
+        <div className="fixed -left-[9999px] top-0 pointer-events-none">
           <PrintableResults result={result} />
         </div>
       )}
