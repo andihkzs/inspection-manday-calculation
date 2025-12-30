@@ -4,7 +4,7 @@
  * Side effects: none
  */
 
-import { ArrowLeft, Calculator, Clock, FileText, History, Save, Trash2 } from 'lucide-react';
+import { ArrowLeft, Calculator, Clock, FileText, History, Save, Trash2, Download, Image, Zap } from 'lucide-react';
 
 interface HelpProps {
   onBack: () => void;
@@ -68,9 +68,20 @@ export function Help({ onBack }: HelpProps) {
                 <div>
                   <h3 className="font-medium text-gray-700 mb-2">2. Purchase Orders</h3>
                   <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                    <li>Add multiple POs using the "+ Add PO" button</li>
+                    <li><strong>Add Single PO:</strong> Click "+ Add PO" button or use keyboard shortcut (Ctrl+P or ⌘+P)</li>
+                    <li><strong>Add Multiple POs:</strong> Click "+ Add Multiple" to add several POs at once (up to 50)</li>
                     <li>Enter PO number and quantity for each order</li>
-                    <li>Remove unwanted POs with the trash icon</li>
+                    <li>Remove unwanted POs with the trash icon (minimum 1 PO required)</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-700 mb-2">3. Functional Testing (Optional)</h3>
+                  <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                    <li>Each PO can have optional functional testing configured</li>
+                    <li><strong>Inspection Level:</strong> Choose Level I, II, S-3 (Reduced), or S-4 (Tightened)</li>
+                    <li><strong>Test Time per Unit:</strong> Enter the time in minutes to perform functional tests on each unit</li>
+                    <li>Leave test time at 0 if no functional testing is required</li>
+                    <li>Functional test time is calculated separately and added to the total inspection time</li>
                   </ul>
                 </div>
               </div>
@@ -86,10 +97,10 @@ export function Help({ onBack }: HelpProps) {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <ul className="space-y-3 text-gray-600">
                   <li><strong>A. Preparation Time:</strong> Setup and preparation before inspection (default: 30 min)</li>
-                  <li><strong>B. Sampling Time:</strong> Time per PO to select samples (default: 90 min per PO)</li>
-                  <li><strong>C. Inspection Time:</strong> Time per unit to inspect (default: 2.5 min per sample)</li>
-                  <li><strong>D. Packing Check:</strong> Final packing verification (default: 30 min)</li>
-                  <li><strong>E. Report Time:</strong> Report preparation and upload (default: 45 min)</li>
+                  <li><strong>B. Sampling Time per PO:</strong> Time to select samples for each PO (default: 10 min per PO)</li>
+                  <li><strong>C. Inspection Time per Unit:</strong> Time to inspect each sample unit (default: 2.5 min per sample)</li>
+                  <li><strong>D. Packing & Marking Check:</strong> Final packing verification (default: 30 min)</li>
+                  <li><strong>E. Report & Upload:</strong> Report preparation and upload (default: 45 min)</li>
                   <li><strong>F. Travel Time:</strong> Optional - Check the box to include travel time in total calculation (default: 180 min)</li>
                 </ul>
               </div>
@@ -104,18 +115,36 @@ export function Help({ onBack }: HelpProps) {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-orange-100 p-2 rounded-lg">
-                  <Save className="w-6 h-6 text-orange-600" />
+                  <Download className="w-6 h-6 text-orange-600" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-800">Saving Calculations</h2>
+                <h2 className="text-xl font-semibold text-gray-800">Exporting Results</h2>
               </div>
               <p className="text-gray-600 mb-3">
-                After calculating, click the "Save Calculation" button to store your results for future reference.
+                After calculating, you can export your results in multiple formats:
               </p>
-              <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                <p className="text-sm text-amber-800">
-                  <strong>Important:</strong> If the total exceeds 10 hours, the system will show a warning that pre-approval is required.
-                  You'll have two charging options: Option 1 (charge 2 man-days) or Option 2 (charge actual time).
-                </p>
+              <div className="space-y-3">
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <Download className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Export to PDF:</strong> Click the "PDF" button to download a professional PDF report with all calculation details, perfect for sharing with clients or archiving.
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Image className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <strong>Export to JPG:</strong> Click the "JPG" button to download a high-quality image of your results, ideal for quick sharing via email or messaging.
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                  <p className="text-sm text-amber-800">
+                    <strong>Important:</strong> If the total exceeds 10 hours, the system will show a warning that pre-approval is required.
+                    You'll have two charging options: Option 1 (charge 2 man-days) or Option 2 (charge actual time).
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -154,6 +183,31 @@ export function Help({ onBack }: HelpProps) {
             </section>
 
             <section>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <Zap className="w-6 h-6 text-green-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-gray-800">Productivity Tips</h2>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <ul className="space-y-3 text-gray-600">
+                  <li>
+                    <strong>Keyboard Shortcut:</strong> Press Ctrl+P (or ⌘+P on Mac) to quickly add a new PO without clicking
+                  </li>
+                  <li>
+                    <strong>Batch Adding:</strong> Use the "Add Multiple" button when you need to add many POs at once - you can add up to 50 POs in a single action
+                  </li>
+                  <li>
+                    <strong>Quick Export:</strong> After calculation, use the PDF button for formal reports or JPG button for quick sharing
+                  </li>
+                  <li>
+                    <strong>Functional Testing:</strong> Only configure functional tests for POs that require it - leave the time at 0 for standard inspections
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">Understanding Results</h2>
                 <div className="space-y-3 text-gray-600">
@@ -171,6 +225,9 @@ export function Help({ onBack }: HelpProps) {
                   </p>
                   <p>
                     <strong>Man-Days:</strong> Total time divided by 10 hours (1 working day = 10 hours)
+                  </p>
+                  <p>
+                    <strong>Functional Test Samples:</strong> Additional samples required for functional testing (if configured), calculated based on the functional test inspection level
                   </p>
                 </div>
               </div>
