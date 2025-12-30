@@ -5,14 +5,16 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Download, Image } from 'lucide-react';
 import type { InspectionLevel, AQLLevel, CalculationResult } from '../lib/aql/types';
 import { calculateAQL } from '../lib/aql/engine';
 import { ResultsTable } from './ResultsTable';
 import { CalculationExplanation } from './CalculationExplanation';
 import { Sidebar } from './Sidebar';
 import { Logo } from './Logo';
+import { PrintableResults } from './PrintableResults';
 import { VERSION } from '../lib/version';
+import { exportToPDF, exportToJPG } from '../lib/export';
 
 interface PO {
   id: string;
@@ -439,7 +441,27 @@ export function Calculator() {
           <div className="space-y-6">
             {result && (
               <>
-                <ResultsTable result={result} />
+                <div className="space-y-3">
+                  <ResultsTable result={result} />
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => exportToPDF('printable-results', `aql-calculation-${new Date().toISOString().split('T')[0]}.pdf`)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
+                      title="Export as PDF"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>PDF</span>
+                    </button>
+                    <button
+                      onClick={() => exportToJPG('printable-results', `aql-calculation-${new Date().toISOString().split('T')[0]}.jpg`)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors font-medium"
+                      title="Export as JPG"
+                    >
+                      <Image className="w-4 h-4" />
+                      <span>JPG</span>
+                    </button>
+                  </div>
+                </div>
                 <CalculationExplanation
                   result={result}
                   inspectionLevel={inspectionLevel}
@@ -480,6 +502,12 @@ export function Calculator() {
         onClose={() => setSidebarOpen(false)}
         content={sidebarContent}
       />
+
+      {result && (
+        <div className="hidden">
+          <PrintableResults result={result} />
+        </div>
+      )}
 
       <footer className="bg-white border-t border-gray-200 mt-8 pb-20 sm:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

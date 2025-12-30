@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { Lock, QrCode, X } from 'lucide-react';
+import { Lock, QrCode } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface PasswordLoginProps {
