@@ -1,5 +1,7 @@
 # Mega Step Calc - AQL Inspection Calculator
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/559f3b0b-c206-4327-bfae-d3ff97b6ae9e/deploy-status)](https://app.netlify.com/projects/calcmandays/deploys)
+
 A professional AQL (Acceptable Quality Limit) inspection calculator with Supabase backend integration.
 
 ## Features
