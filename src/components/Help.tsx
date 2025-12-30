@@ -4,7 +4,7 @@
  * Side effects: none
  */
 
-import { ArrowLeft, Calculator, Clock, FileText, History, Save, Trash2, Download, Image, Zap } from 'lucide-react';
+import { ArrowLeft, Calculator, Clock, FileText, Download, Image, Zap } from 'lucide-react';
 
 interface HelpProps {
   onBack: () => void;
@@ -44,7 +44,7 @@ export function Help({ onBack }: HelpProps) {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="font-medium text-gray-700 mb-2">Login Credentials:</h3>
                 <ul className="list-disc pl-6 text-gray-600 space-y-1">
-                  <li><strong>User:</strong> cei2024 (calculator and history access)</li>
+                  <li><strong>User:</strong> cei2024 (calculator access)</li>
                 </ul>
               </div>
             </section>
@@ -146,40 +146,6 @@ export function Help({ onBack }: HelpProps) {
                   </p>
                 </div>
               </div>
-            </section>
-
-            <section>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-indigo-100 p-2 rounded-lg">
-                  <History className="w-6 h-6 text-indigo-600" />
-                </div>
-                <h2 className="text-xl font-semibold text-gray-800">Calculation History</h2>
-              </div>
-              <p className="text-gray-600 mb-3">
-                Click the "History" button to view your saved calculations. From the history modal:
-              </p>
-              <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                <li>Click any calculation to load it back into the calculator</li>
-                <li>View details including inspection level, AQL values, POs, and total man-days</li>
-                <li><strong>Admin Only:</strong> Delete individual calculations or clear all history</li>
-              </ul>
-            </section>
-
-            <section>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-red-100 p-2 rounded-lg">
-                  <Trash2 className="w-6 h-6 text-red-600" />
-                </div>
-                <h2 className="text-xl font-semibold text-gray-800">Admin Features</h2>
-              </div>
-              <p className="text-gray-600 mb-3">
-                Admin users (password: ms2024) have additional permissions:
-              </p>
-              <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                <li><strong>Delete Single Calculation:</strong> Click the trash icon on any history item</li>
-                <li><strong>Delete All Calculations:</strong> Use the "Delete All" button in the history modal header</li>
-                <li>All deletions require confirmation to prevent accidental data loss</li>
-              </ul>
             </section>
 
             <section>
