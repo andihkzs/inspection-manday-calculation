@@ -5,15 +5,13 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, LogOut, Save, History } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import type { InspectionLevel, AQLLevel, CalculationResult } from '../lib/aql/types';
 import { calculateAQL } from '../lib/aql/engine';
 import { ResultsTable } from './ResultsTable';
 import { CalculationExplanation } from './CalculationExplanation';
-import { HistoryModal } from './HistoryModal';
 import { Sidebar } from './Sidebar';
 import { Logo } from './Logo';
-import { saveCalculation, type SavedCalculation } from '../lib/api/calculations';
 import { VERSION } from '../lib/version';
 
 interface PO {
@@ -24,12 +22,7 @@ interface PO {
   functionalTestTimePerUnit: string;
 }
 
-interface CalculatorProps {
-  onLogout: () => void;
-  isAdmin: boolean;
-}
-
-export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
+export function Calculator() {
   const [inspectionLevel, setInspectionLevel] = useState<InspectionLevel>('II');
   const [aqlMajor, setAqlMajor] = useState<AQLLevel>('2.5');
   const [aqlMinor, setAqlMinor] = useState<AQLLevel>('4.0');
@@ -44,12 +37,8 @@ export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
     { id: '1', poNumber: 'PO-001', quantity: '1000', functionalTestLevel: 'S-3', functionalTestTimePerUnit: '0' }
   ]);
   const [result, setResult] = useState<CalculationResult | null>(null);
-  const [showHistory, setShowHistory] = useState(false);
-  const [saveMessage, setSaveMessage] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarContent, setSidebarContent] = useState<'help' | 'privacy' | 'terms'>('help');
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const [customName, setCustomName] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
 
   const addPO = () => {
@@ -124,67 +113,6 @@ export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
     setResult(calculationResult);
   };
 
-  const handleSave = () => {
-    if (!result) {
-      alert('Please calculate first before saving');
-      return;
-    }
-    setShowSaveModal(true);
-  };
-
-  const handleConfirmSave = async () => {
-    if (!result) return;
-
-    const validPos = pos.filter(p => p.poNumber && p.quantity && parseInt(p.quantity) > 0);
-    const input = {
-      inspectionLevel,
-      aqlMajor,
-      aqlMinor,
-      pos: validPos.map(p => ({
-        poNumber: p.poNumber,
-        quantity: parseInt(p.quantity),
-        functionalTestLevel: p.functionalTestLevel,
-        functionalTestTimePerUnit: parseFloat(p.functionalTestTimePerUnit) || 0,
-      })),
-      preparationTimeMinutes: parseFloat(preparationTime),
-      samplingTimeMinutes: parseFloat(samplingTime),
-      inspectionTimePerUnitMinutes: parseFloat(inspectionTime),
-      packingCheckTimeMinutes: parseFloat(packingCheckTime),
-      reportTimeMinutes: parseFloat(reportTime),
-      travelTimeMinutes: parseFloat(travelTime),
-      includeTravelTime,
-    };
-
-    const response = await saveCalculation(input, result, customName.trim() || undefined);
-    if (response.success) {
-      setSaveMessage('Calculation saved successfully!');
-      setTimeout(() => setSaveMessage(''), 3000);
-      setShowSaveModal(false);
-      setCustomName('');
-    } else {
-      alert('Failed to save calculation: ' + response.error);
-    }
-  };
-
-  const handleLoadCalculation = (calc: SavedCalculation) => {
-    setInspectionLevel(calc.inspection_level as InspectionLevel);
-    setAqlMajor(calc.aql_major as AQLLevel);
-    setAqlMinor(calc.aql_minor as AQLLevel);
-    setPreparationTime((calc.preparation_time_minutes || 30).toString());
-    setSamplingTime(calc.sampling_time_minutes.toString());
-    setInspectionTime(calc.inspection_time_per_unit_minutes.toString());
-    setPackingCheckTime((calc.packing_check_time_minutes || 30).toString());
-    setReportTime((calc.report_time_minutes || 45).toString());
-    setTravelTime((calc.travel_time_minutes || 180).toString());
-    setIncludeTravelTime(calc.include_travel_time || false);
-    setPos(calc.pos.map((po, index) => ({
-      id: (index + 1).toString(),
-      poNumber: po.poNumber,
-      quantity: po.quantity.toString(),
-    })));
-    setResult(calc.results);
-  };
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
@@ -217,9 +145,6 @@ export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
           <div className="flex justify-between items-center">
             <Logo size="md" />
             <div className="flex items-center gap-1 sm:gap-2">
-              {saveMessage && (
-                <span className="hidden sm:inline text-sm text-green-600 font-medium mr-2">{saveMessage}</span>
-              )}
               <button
                 onClick={() => {
                   setSidebarContent('help');
@@ -249,32 +174,6 @@ export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
                 title="Terms of Service"
               >
                 <span className="text-sm">Terms</span>
-              </button>
-              <button
-                onClick={() => setShowHistory(true)}
-                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors text-sm"
-                title="View History"
-              >
-                <History className="w-4 h-4" />
-                <span className="hidden sm:inline">History</span>
-              </button>
-              {result && (
-                <button
-                  onClick={handleSave}
-                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
-                  title="Save Calculation"
-                >
-                  <Save className="w-4 h-4" />
-                  <span className="hidden sm:inline">Save</span>
-                </button>
-              )}
-              <button
-                onClick={onLogout}
-                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors text-sm"
-                title="Logout"
-              >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">Logout</span>
               </button>
             </div>
           </div>
@@ -576,63 +475,11 @@ export function Calculator({ onLogout, isAdmin }: CalculatorProps) {
         </div>
       </div>
 
-      <HistoryModal
-        isOpen={showHistory}
-        onClose={() => setShowHistory(false)}
-        onLoadCalculation={handleLoadCalculation}
-        isAdmin={isAdmin}
-      />
-
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         content={sidebarContent}
       />
-
-      {showSaveModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Save Calculation</h3>
-            <p className="text-sm text-gray-600 mb-4">
-              Give this calculation a custom name (optional) to easily identify it later.
-            </p>
-            <input
-              type="text"
-              value={customName}
-              onChange={(e) => setCustomName(e.target.value)}
-              placeholder="e.g., Project ABC - Initial Inspection"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
-              maxLength={100}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handleConfirmSave();
-                } else if (e.key === 'Escape') {
-                  setShowSaveModal(false);
-                  setCustomName('');
-                }
-              }}
-              autoFocus
-            />
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => {
-                  setShowSaveModal(false);
-                  setCustomName('');
-                }}
-                className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmSave}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <footer className="bg-white border-t border-gray-200 mt-8 pb-20 sm:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
