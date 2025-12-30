@@ -32,20 +32,6 @@ export function PrintableResults({ result }: PrintableResultsProps) {
           </p>
         </div>
 
-        <div className="bg-gray-50 border border-gray-300 rounded p-4">
-          <h3 className="font-bold text-gray-800 uppercase text-sm mb-2">Purchase Orders</h3>
-          <div className="flex flex-wrap gap-2">
-            {result.poResults.map((po, index) => (
-              <span
-                key={index}
-                className="inline-block px-3 py-1 bg-blue-100 border border-blue-300 rounded text-sm font-semibold text-gray-800"
-              >
-                {po.poNumber}
-              </span>
-            ))}
-          </div>
-        </div>
-
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-2">
             <h3 className="font-bold text-gray-800 uppercase text-sm">Key Results</h3>
