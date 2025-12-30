@@ -4,6 +4,4 @@
  * Side effects: none
  */
 
-import packageJson from '../../package.json';
-
-export const VERSION = packageJson.version;
+export const VERSION = '1.0.8';

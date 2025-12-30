@@ -7,9 +7,4 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  resolve: {
-    alias: {
-      '../../package.json': '/package.json'
-    }
-  }
 });
