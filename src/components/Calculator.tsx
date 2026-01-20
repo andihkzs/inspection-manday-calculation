@@ -35,6 +35,7 @@ export function Calculator() {
   const [reportTime, setReportTime] = useState('45');
   const [travelTime, setTravelTime] = useState('180');
   const [includeTravelTime, setIncludeTravelTime] = useState(false);
+  const [travelRoute, setTravelRoute] = useState('');
   const [pos, setPos] = useState<PO[]>([
     { id: '1', poNumber: 'PO-001', quantity: '1000', functionalTestLevel: 'S-3', functionalTestTimePerUnit: '0' }
   ]);
@@ -313,7 +314,7 @@ export function Calculator() {
                     />
                   </div>
 
-                  <div>
+                  <div className="sm:col-span-2">
                     <div className="flex items-center gap-2 mb-2">
                       <input
                         type="checkbox"
@@ -323,19 +324,35 @@ export function Calculator() {
                         className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                       />
                       <label htmlFor="includeTravelTime" className="text-sm font-medium text-gray-700 cursor-pointer">
-                        F. Include Travel Time (min)
+                        F. Include Travel Time (one-way, min)
                       </label>
                     </div>
-                    <p className="text-xs text-gray-500 mb-2">For long-distance travel only</p>
-                    <input
-                      type="number"
-                      value={travelTime}
-                      onChange={(e) => setTravelTime(e.target.value)}
-                      disabled={!includeTravelTime}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none disabled:bg-gray-100 disabled:text-gray-500"
-                      min="0"
-                      step="1"
-                    />
+                    <p className="text-xs text-gray-500 mb-2">Examples: Shenzhen → factory, Ningbo → factory</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Route (City → Factory)</label>
+                        <input
+                          type="text"
+                          value={travelRoute}
+                          onChange={(e) => setTravelRoute(e.target.value)}
+                          disabled={!includeTravelTime}
+                          placeholder="e.g., Shenzhen → Factory A"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none disabled:bg-gray-100 disabled:text-gray-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Time (minutes)</label>
+                        <input
+                          type="number"
+                          value={travelTime}
+                          onChange={(e) => setTravelTime(e.target.value)}
+                          disabled={!includeTravelTime}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none disabled:bg-gray-100 disabled:text-gray-500"
+                          min="0"
+                          step="1"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

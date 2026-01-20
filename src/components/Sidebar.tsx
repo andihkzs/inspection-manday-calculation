@@ -82,13 +82,13 @@ export function Sidebar({ isOpen, onClose, content }: SidebarProps) {
             <li><strong>C. Inspection Time:</strong> Time per unit to inspect (default: 2.5 min per sample)</li>
             <li><strong>D. Packing Check:</strong> Final packing verification (default: 30 min)</li>
             <li><strong>E. Report Time:</strong> Report preparation and upload (default: 45 min)</li>
-            <li><strong>F. Travel Time:</strong> Optional - Check the box to include travel time in total calculation (default: 180 min)</li>
+            <li><strong>F. Travel Time (One-Way):</strong> Optional - Check the box to include travel time in total calculation (default: 180 min). Enter your route (e.g., Shenzhen → factory, Ningbo → factory) and travel duration.</li>
           </ul>
         </div>
         <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-800">
-            <strong>Note:</strong> Travel time is unchecked by default. For local inspections, leave it unchecked.
-            For long-distance travel, check the box to include it in the total calculation.
+            <strong>Note:</strong> Travel time is unchecked by default and calculated as one-way. For local inspections, leave it unchecked.
+            For long-distance travel, check the box, enter your route, and specify the travel time.
           </p>
         </div>
       </section>
