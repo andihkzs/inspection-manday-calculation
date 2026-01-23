@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm version patch --no-git-tag-version && vite build",
-    "build:no-version": "vite build",
+    "build": "npm version patch --no-git-tag-version && node update-version.js && vite build",
+    "build:no-version": "node update-version.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "version:patch": "npm version patch --no-git-tag-version",
     "version:minor": "npm version minor --no-git-tag-version",
-    "version:major": "npm version major --no-git-tag-version"
+    "version:major": "npm version major --no-git-tag-version",
+    "sync-version": "node update-version.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
