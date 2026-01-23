@@ -105,7 +105,10 @@ export function ResultsTable({ result }: ResultsTableProps) {
             </div>
             {result.includeTravelTime && (
               <div className="flex justify-between">
-                <span className="text-gray-600">F. Travel Time:</span>
+                <span className="text-gray-600">
+                  F. Travel Time:{' '}
+                  {result.travelRoute && <span className="text-blue-600">({result.travelRoute})</span>}
+                </span>
                 <span className="font-semibold text-gray-800">{result.breakdown.travelHours.toFixed(2)} hrs</span>
               </div>
             )}
