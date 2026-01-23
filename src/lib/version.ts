@@ -4,4 +4,4 @@
  * Side effects: Auto-generated from package.json during build
  */
 
-export const VERSION = '1.0.15';
+export const VERSION = '1.0.16';

@@ -23,6 +23,7 @@ export interface AQLResult {
 }
 
 export interface CalculationInput {
+  factoryName?: string;
   inspectionLevel: InspectionLevel;
   aqlMajor: AQLLevel;
   aqlMinor: AQLLevel;

@@ -11,6 +11,7 @@ export interface SavedCalculation {
   id: string;
   created_at: string;
   custom_name?: string;
+  factory_name?: string;
   inspection_level: string;
   aql_major: string;
   aql_minor: string;
@@ -36,6 +37,7 @@ export async function saveCalculation(
   try {
     const { error } = await supabase.from('calculations').insert({
       custom_name: customName || null,
+      factory_name: input.factoryName || null,
       inspection_level: input.inspectionLevel,
       aql_major: input.aqlMajor,
       aql_minor: input.aqlMinor,
