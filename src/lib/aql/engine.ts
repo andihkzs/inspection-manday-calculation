@@ -72,6 +72,7 @@ export function calculateAQL(input: CalculationInput): CalculationResult {
   const exceedsOneDay = totalHours > 10;
 
   return {
+    factoryName: input.factoryName,
     poResults,
     totalSamples,
     totalManDays,

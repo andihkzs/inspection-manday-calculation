@@ -44,6 +44,7 @@ export interface CalculationInput {
 }
 
 export interface CalculationResult {
+  factoryName?: string;
   poResults: AQLResult[];
   totalSamples: number;
   totalManDays: number;

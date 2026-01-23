@@ -27,6 +27,11 @@ export function PrintableResults({ result }: PrintableResultsProps) {
         <div className="text-center border-b-2 border-gray-300 pb-4">
           <h1 className="text-3xl font-bold text-gray-800">AQL Calculation Report</h1>
           <p className="text-gray-600 mt-2">Mega Step (HK) Ltd</p>
+          {result.factoryName && (
+            <p className="text-lg font-semibold text-blue-600 mt-2">
+              Factory: {result.factoryName}
+            </p>
+          )}
           <p className="text-sm text-gray-500 mt-1">
             Generated: {new Date().toLocaleString()}
           </p>
