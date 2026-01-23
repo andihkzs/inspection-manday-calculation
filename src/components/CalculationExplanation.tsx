@@ -93,10 +93,15 @@ export function CalculationExplanation({ result, inspectionLevel, aqlMajor, aqlM
             <p className="pt-2 border-t border-blue-200 font-semibold">
               Subtotal (without travel): {result.breakdown.subtotalWithoutTravel.toFixed(2)} hours
             </p>
-            <p>
-              <span className="font-semibold">F. Travel Time:</span>{' '}
-              {(result.breakdown.travelHours * 60).toFixed(0)} min = {result.breakdown.travelHours.toFixed(2)} hours
-            </p>
+            {result.includeTravelTime && (
+              <>
+                <p>
+                  <span className="font-semibold">F. Travel Time:</span>{' '}
+                  {result.travelRoute && <span className="text-blue-600">({result.travelRoute}) </span>}
+                  {(result.breakdown.travelHours * 60).toFixed(0)} min = {result.breakdown.travelHours.toFixed(2)} hours
+                </p>
+              </>
+            )}
             <p className="pt-2 border-t border-blue-300 font-bold text-blue-700">
               Total: {result.totalHours.toFixed(2)} hours ÷ 10 hrs/day = {result.totalManDays.toFixed(2)} man-days
             </p>

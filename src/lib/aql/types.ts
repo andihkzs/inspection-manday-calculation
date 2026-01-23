@@ -39,6 +39,7 @@ export interface CalculationInput {
   reportTimeMinutes: number;
   travelTimeMinutes: number;
   includeTravelTime: boolean;
+  travelRoute?: string;
 }
 
 export interface CalculationResult {
@@ -48,6 +49,7 @@ export interface CalculationResult {
   totalHours: number;
   exceedsOneDay: boolean;
   includeTravelTime: boolean;
+  travelRoute?: string;
   breakdown: {
     preparationHours: number;
     samplingHours: number;

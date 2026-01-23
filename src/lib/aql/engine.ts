@@ -78,6 +78,7 @@ export function calculateAQL(input: CalculationInput): CalculationResult {
     totalHours,
     exceedsOneDay,
     includeTravelTime: input.includeTravelTime,
+    travelRoute: input.travelRoute,
     breakdown: {
       preparationHours,
       samplingHours,

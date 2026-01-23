@@ -160,10 +160,17 @@ export function PrintableResults({ result }: PrintableResultsProps) {
                 <span className="font-semibold">{result.breakdown.reportHours.toFixed(2)}</span>
               </div>
               {result.includeTravelTime && (
-                <div className="flex justify-between mb-1">
-                  <span>F. Travel Time:</span>
-                  <span className="font-semibold">{result.breakdown.travelHours.toFixed(2)}</span>
-                </div>
+                <>
+                  <div className="flex justify-between mb-1">
+                    <span>F. Travel Time:</span>
+                    <span className="font-semibold">{result.breakdown.travelHours.toFixed(2)}</span>
+                  </div>
+                  {result.travelRoute && (
+                    <div className="text-xs text-gray-600 italic mb-1 pl-2">
+                      Route: {result.travelRoute}
+                    </div>
+                  )}
+                </>
               )}
               <div className="flex justify-between pt-2 border-t border-gray-300 font-bold mt-1">
                 <span>TOTAL:</span>

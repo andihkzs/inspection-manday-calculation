@@ -111,6 +111,7 @@ export function Calculator() {
       reportTimeMinutes: parseFloat(reportTime),
       travelTimeMinutes: parseFloat(travelTime),
       includeTravelTime,
+      travelRoute: travelRoute.trim() || undefined,
     });
 
     setResult(calculationResult);

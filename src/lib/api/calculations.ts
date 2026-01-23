@@ -21,6 +21,7 @@ export interface SavedCalculation {
   report_time_minutes: number;
   travel_time_minutes: number;
   include_travel_time: boolean;
+  travel_route?: string;
   pos: Array<{ poNumber: string; quantity: number }>;
   results: CalculationResult;
   total_samples: number;
@@ -45,6 +46,7 @@ export async function saveCalculation(
       report_time_minutes: input.reportTimeMinutes,
       travel_time_minutes: input.travelTimeMinutes,
       include_travel_time: input.includeTravelTime,
+      travel_route: input.travelRoute || null,
       pos: input.pos,
       results: result,
       total_samples: result.totalSamples,
