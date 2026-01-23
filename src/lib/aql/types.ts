@@ -52,6 +52,15 @@ export interface CalculationResult {
   exceedsOneDay: boolean;
   includeTravelTime: boolean;
   travelRoute?: string;
+  inputValues: {
+    preparationTimeMinutes: number;
+    samplingTimeMinutes: number;
+    inspectionTimePerUnitMinutes: number;
+    packingCheckTimeMinutes: number;
+    reportTimeMinutes: number;
+    travelTimeMinutes: number;
+    poCount: number;
+  };
   breakdown: {
     preparationHours: number;
     samplingHours: number;

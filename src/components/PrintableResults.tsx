@@ -133,54 +133,54 @@ export function PrintableResults({ result }: PrintableResultsProps) {
         </div>
 
         <div className="space-y-3">
-          <h3 className="font-bold text-gray-800 uppercase text-sm">Time Breakdown (Hours)</h3>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="border border-gray-300 rounded p-2">
-              <div className="flex justify-between mb-1">
-                <span>A. Preparation:</span>
-                <span className="font-semibold">{result.breakdown.preparationHours.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between mb-1">
-                <span>B. Sampling:</span>
-                <span className="font-semibold">{result.breakdown.samplingHours.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between mb-1">
-                <span>C. Inspection:</span>
-                <span className="font-semibold">{result.breakdown.inspectionHours.toFixed(2)}</span>
-              </div>
-              {result.breakdown.functionalTestHours > 0 && (
-                <div className="flex justify-between mb-1">
-                  <span>C1. Functional Test:</span>
-                  <span className="font-semibold text-purple-600">{result.breakdown.functionalTestHours.toFixed(2)}</span>
-                </div>
-              )}
+          <h3 className="font-bold text-gray-800 uppercase text-sm">Time Breakdown (Work Package Breakdown)</h3>
+          <div className="border border-gray-300 rounded p-3 text-sm space-y-2">
+            <div>
+              <span className="font-semibold">A. Preparation: </span>
+              {result.inputValues.preparationTimeMinutes} min = {result.breakdown.preparationHours.toFixed(2)} hours
             </div>
-            <div className="border border-gray-300 rounded p-2">
-              <div className="flex justify-between mb-1">
-                <span>D. Packing & Check:</span>
-                <span className="font-semibold">{result.breakdown.packingCheckHours.toFixed(2)}</span>
+            <div>
+              <span className="font-semibold">B. Sampling: </span>
+              {result.inputValues.poCount} POs × {result.inputValues.samplingTimeMinutes} min/PO = {result.breakdown.samplingHours.toFixed(2)} hours
+            </div>
+            <div>
+              <span className="font-semibold">C. Product Inspection: </span>
+              {result.totalSamples} samples × {result.inputValues.inspectionTimePerUnitMinutes.toFixed(2)} min/sample = {result.breakdown.inspectionHours.toFixed(2)} hours
+            </div>
+            {result.breakdown.functionalTestHours > 0 && (
+              <div className="text-purple-600">
+                <span className="font-semibold">C1. Functional Test: </span>
+                {result.breakdown.functionalTestHours.toFixed(2)} hours
               </div>
-              <div className="flex justify-between mb-1">
-                <span>E. Report & Upload:</span>
-                <span className="font-semibold">{result.breakdown.reportHours.toFixed(2)}</span>
-              </div>
-              {result.includeTravelTime && (
-                <>
-                  <div className="flex justify-between mb-1">
-                    <span>F. Travel Time:</span>
-                    <span className="font-semibold">{result.breakdown.travelHours.toFixed(2)}</span>
-                  </div>
+            )}
+            <div>
+              <span className="font-semibold">D. Packing & Marking Check: </span>
+              {result.inputValues.packingCheckTimeMinutes} min = {result.breakdown.packingCheckHours.toFixed(2)} hours
+            </div>
+            <div>
+              <span className="font-semibold">E. Report & Upload: </span>
+              {result.inputValues.reportTimeMinutes} min = {result.breakdown.reportHours.toFixed(2)} hours
+            </div>
+            <div className="pt-2 border-t border-gray-300 font-bold">
+              <span>Subtotal (without travel): </span>
+              {result.breakdown.subtotalWithoutTravel.toFixed(2)} hours
+            </div>
+            {result.includeTravelTime && (
+              <>
+                <div>
+                  <span className="font-semibold">F. Travel Time: </span>
+                  {result.inputValues.travelTimeMinutes} min = {result.breakdown.travelHours.toFixed(2)} hours
                   {result.travelRoute && (
-                    <div className="text-xs text-gray-600 italic mb-1 pl-2">
-                      Route: {result.travelRoute}
-                    </div>
+                    <span className="text-xs text-gray-600 italic ml-2">
+                      (Route: {result.travelRoute})
+                    </span>
                   )}
-                </>
-              )}
-              <div className="flex justify-between pt-2 border-t border-gray-300 font-bold mt-1">
-                <span>TOTAL:</span>
-                <span>{result.totalHours.toFixed(2)}</span>
-              </div>
+                </div>
+              </>
+            )}
+            <div className="pt-2 border-t-2 border-gray-400 font-bold text-base">
+              <span>TOTAL: </span>
+              {result.totalHours.toFixed(2)} hours
             </div>
           </div>
         </div>

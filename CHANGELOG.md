@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.18] - 2026-01-23
+
+### Changed
+- Improved time breakdown format in exported reports to show detailed calculation formulas
+- Time breakdown now displays input values and calculations (e.g., "80 samples × 2.50 min/sample = 3.33 hours")
+- Added subtotal line showing hours before travel time
+
 ## [1.0.17] - 2026-01-23
 
 ### Added

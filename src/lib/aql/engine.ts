@@ -80,6 +80,15 @@ export function calculateAQL(input: CalculationInput): CalculationResult {
     exceedsOneDay,
     includeTravelTime: input.includeTravelTime,
     travelRoute: input.travelRoute,
+    inputValues: {
+      preparationTimeMinutes: input.preparationTimeMinutes,
+      samplingTimeMinutes: input.samplingTimeMinutes,
+      inspectionTimePerUnitMinutes: input.inspectionTimePerUnitMinutes,
+      packingCheckTimeMinutes: input.packingCheckTimeMinutes,
+      reportTimeMinutes: input.reportTimeMinutes,
+      travelTimeMinutes: input.travelTimeMinutes,
+      poCount: input.pos.length,
+    },
     breakdown: {
       preparationHours,
       samplingHours,
